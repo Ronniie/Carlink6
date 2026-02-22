@@ -4,6 +4,10 @@ A Home Assistant custom integration and standalone CLI for vehicles equipped wit
 
 Control your vehicle remotely — engine start/stop, door lock/unlock — and monitor status (engine, doors, battery voltage, GPS) directly from your Home Assistant dashboard or the command line.
 
+<p align="center">
+  <img src="pics/HiFXqGSG@2x.png" alt="Carlink6 Lovelace Card" width="500">
+</p>
+
 ## How It Works
 
 Carlink6 communicates with the M2MSuite API, the same backend used by the official MyCar mobile app. Authentication uses your MyCar app credentials (email and password). The integration uses HTTP Basic Auth against the M2MSuite REST API — no OAuth, no cloud bridge, no third-party dependencies.
