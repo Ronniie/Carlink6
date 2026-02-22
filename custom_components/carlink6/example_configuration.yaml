@@ -1,0 +1,37 @@
+# ── Carlink6 ────────────────────────────────────────
+# Add this block to your configuration.yaml
+#
+# Required:
+#   email       — Your CL6 / MyCar app login email
+#   password    — Your CL6 / MyCar app password
+#
+# Optional:
+#   poll_interval — Seconds between vehicle status polls (default: 30)
+#   vehicles      — Explicitly list vehicles by device_id.
+#                   If omitted, ALL vehicles on your account are
+#                   auto-discovered. If your account has no vehicles
+#                   listed, the profile's default device is used.
+
+# ── Single vehicle (auto-detect) ──
+carlink6:
+  email: "you@example.com"
+  password: "your_password_here"
+
+# ── Single vehicle (explicit) ──
+# carlink6:
+#   email: "you@example.com"
+#   password: "your_password_here"
+#   vehicles:
+#     - device_id: 12345
+#       name: "My Car"
+
+# ── Multiple vehicles ──
+# carlink6:
+#   email: "you@example.com"
+#   password: "your_password_here"
+#   poll_interval: 30
+#   vehicles:
+#     - device_id: 12345
+#       name: "My Car"
+#     - device_id: 67890
+#       name: "Wife's Car"

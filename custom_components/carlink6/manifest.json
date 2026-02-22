@@ -1,0 +1,9 @@
+{
+  "domain": "carlink6",
+  "name": "Carlink6",
+  "version": "1.0.0",
+  "documentation": "https://github.com/Ronniie/Carlink6",
+  "requirements": ["requests>=2.30.0"],
+  "dependencies": [],
+  "codeowners": ["@Ronniie"]
+}

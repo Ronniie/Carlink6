@@ -1,0 +1,90 @@
+# Lovelace dashboard card for Carlink6.
+#
+# Replace "my_car" in every entity ID below with your actual entity prefix.
+# To find yours: Developer Tools > States > search "carlink6"
+#
+# Example: if your entities show as sensor.honda_accord_engine_status,
+# replace every "my_car" with "honda_accord".
+
+type: vertical-stack
+cards:
+  - type: entities
+    title: My Car
+    entities:
+      - entity: sensor.my_car_engine_status
+        name: Engine
+      - entity: sensor.my_car_door_status
+        name: Doors
+      - entity: sensor.my_car_battery_voltage
+        name: Battery Voltage
+
+  - type: horizontal-stack
+    cards:
+      # Engine Start
+      - type: button
+        name: Start
+        tap_action:
+          action: perform-action
+          perform_action: button.press
+          target:
+            entity_id: button.my_car_engine_start
+        icon: mdi:engine
+        show_state: false
+        color: >
+          {% if is_state('sensor.my_car_engine_status','on')
+             or is_state('sensor.my_car_engine_status','running') %}
+            green
+          {% else %}
+            grey
+          {% endif %}
+
+      # Engine Stop
+      - type: button
+        name: Stop
+        tap_action:
+          action: perform-action
+          perform_action: button.press
+          target:
+            entity_id: button.my_car_engine_stop
+        icon: mdi:engine-off
+        show_state: false
+        color: >
+          {% if is_state('sensor.my_car_engine_status','off') %}
+            grey
+          {% else %}
+            red
+          {% endif %}
+
+      # Lock Doors
+      - type: button
+        name: Lock
+        tap_action:
+          action: perform-action
+          perform_action: button.press
+          target:
+            entity_id: button.my_car_door_lock
+        icon: mdi:lock
+        show_state: false
+        color: >
+          {% if is_state('sensor.my_car_door_status','locked') %}
+            green
+          {% else %}
+            grey
+          {% endif %}
+
+      # Unlock Doors
+      - type: button
+        name: Unlock
+        tap_action:
+          action: perform-action
+          perform_action: button.press
+          target:
+            entity_id: button.my_car_door_unlock
+        icon: mdi:lock-open
+        show_state: false
+        color: >
+          {% if is_state('sensor.my_car_door_status','unlocked') %}
+            red
+          {% else %}
+            grey
+          {% endif %}
