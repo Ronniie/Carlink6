@@ -5,7 +5,7 @@ A Home Assistant custom integration and standalone CLI for vehicles equipped wit
 Control your vehicle remotely — engine start/stop, door lock/unlock — and monitor status (engine, doors, battery voltage, GPS) directly from your Home Assistant dashboard or the command line.
 
 <p align="center">
-  <img src="pics/HiFXqGSG@2x.png" alt="Carlink6 Lovelace Card" width="500">
+  <img src="pics/NqscS7QE@2x.png" alt="Carlink6 Lovelace Card" width="500">
 </p>
 
 ## How It Works
@@ -106,6 +106,7 @@ For each vehicle, the integration creates:
 | `sensor.<name>_door_status` | `locked` / `unlocked` | Door lock state |
 | `sensor.<name>_battery_voltage` | `12.1` | Battery voltage (V) |
 | `sensor.<name>_gps` | `40.768,-75.364` | Latitude,Longitude |
+| `sensor.<name>_engine_shutdown` | `2026-02-23T23:54:56+00:00` | Engine auto-shutdown time (timestamp) |
 
 **Buttons** (fire-and-forget commands):
 | Entity | Command Sent |
@@ -128,6 +129,7 @@ A ready-to-use card is included in `custom_components/carlink6/lovelace_card.yml
 
 The card provides:
 - Engine, door, and battery status at a glance
+- Countdown timer showing time remaining until engine auto-shutdown (appears only when the engine is running)
 - Start/Stop/Lock/Unlock buttons
 - Color-coded: green Start when engine is running, green Lock when doors are locked, red Unlock when doors are unlocked
 

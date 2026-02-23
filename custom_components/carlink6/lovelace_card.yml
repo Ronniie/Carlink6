@@ -18,6 +18,25 @@ cards:
       - entity: sensor.my_car_battery_voltage
         name: Battery Voltage
 
+  - type: conditional
+    conditions:
+      - entity: sensor.my_car_engine_status
+        state_not: "off"
+    card:
+      type: markdown
+      content: >
+        {% set shutdown = states('sensor.my_car_engine_shutdown') %}
+        {% if shutdown not in ['unknown', 'unavailable', 'None', ''] %}
+          {% set remaining = (as_datetime(shutdown) - now()).total_seconds() | int %}
+          {% if remaining > 0 %}
+            {% set m = remaining // 60 %}
+            {% set s = remaining % 60 %}
+            **Engine Shutdown In:** {{ m }}:{{ '%02d' | format(s) }}
+          {% else %}
+            **Engine shutting down...**
+          {% endif %}
+        {% endif %}
+
   - type: horizontal-stack
     cards:
       # Engine Start

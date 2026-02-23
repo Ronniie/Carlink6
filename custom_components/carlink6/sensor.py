@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -12,6 +13,7 @@ SENSOR_TYPES = {
     "door_status": {"attr": "DoorStatus", "label": "Door Status", "icon": "mdi:car-door"},
     "battery_voltage": {"attr": "ExternalVoltage", "label": "Battery Voltage", "icon": "mdi:car-battery", "unit": "V"},
     "gps": {"attr": ["Latitude", "Longitude"], "label": "GPS", "icon": "mdi:crosshairs-gps"},
+    "engine_shutdown": {"attr": "EngineShutdownDateTime", "label": "Engine Shutdown", "icon": "mdi:timer-outline", "device_class": "timestamp"},
 }
 
 
@@ -44,6 +46,7 @@ class CL6Sensor(CoordinatorEntity, SensorEntity):
         self._attr_name = f"{self._vehicle_name} {sensor_def['label']}"
         self._attr_unique_id = f"carlink6_{key}_{self._device_id}"
         self._attr_icon = sensor_def.get("icon")
+        self._attr_device_class = sensor_def.get("device_class")
 
     @property
     def native_value(self):
@@ -55,7 +58,13 @@ class CL6Sensor(CoordinatorEntity, SensorEntity):
             if lat is not None and lon is not None:
                 return f"{lat},{lon}"
             return None
-        return self.coordinator.data.get(self._sensor_attr)
+        value = self.coordinator.data.get(self._sensor_attr)
+        if self._attr_device_class == "timestamp" and value:
+            try:
+                return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S%z")
+            except (ValueError, TypeError):
+                return None
+        return value
 
     @property
     def native_unit_of_measurement(self):
